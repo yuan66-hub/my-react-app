@@ -1,24 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
 
+import { BrowserRouter, Route, RouterContext } from './lib/my-react-router/index'
+import About from './pages/About';
+import Home from './pages/Home';
+import Users from './pages/Users';
+import Counter from './pages/Counter';
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <RouterContext.Consumer>
+        {
+          (router) => {
+            return (
+              <>
+                <button onClick={router.goPath.bind(null,'/users')}>Users</button>
+                <button onClick={router.goPath.bind(null,'/home')}>Home</button>
+                <button onClick={router.goPath.bind(null,'/about')}>About</button>
+                <button onClick={router.goPath.bind(null,'/counter')}>counter</button>
+
+
+                <Route path="/users" component={Users}></Route>
+                <Route path="/home" component={Home}></Route>
+                <Route path="/about" component={About}></Route>
+                <Route path="/counter" component={Counter}></Route>
+                
+              </>
+            )
+          }
+        }
+      </RouterContext.Consumer>
+
+    </BrowserRouter>
   );
 }
 
